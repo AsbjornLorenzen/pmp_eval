@@ -17,7 +17,7 @@ def _find_free_gpus(threshold=10):
         )
 
         utilizations = [int(x.strip()) for x in result.stdout.split('\n') if x.strip()]
-        print(utilizations)
+        # print(utilizations)
 
         free_gpus = [i for i, util in enumerate(utilizations) if util < 10]
         return free_gpus
@@ -29,9 +29,7 @@ def _find_free_gpus(threshold=10):
 def get_free_gpus(ngpu):
     free_gpus = _find_free_gpus()
     if free_gpus:
-        print(f"Available GPUs are: {free_gpus}")
         selected_gpus = free_gpus[-ngpu:]
-        print(selected_gpus)
     return selected_gpus
 
 
