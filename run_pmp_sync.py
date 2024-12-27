@@ -33,28 +33,7 @@ def init_wandb():
     wandb.log({"initialization": "success"})
 
 
-def initialize_training(batch_size, num_workers):
-    train_loader, valid_loader = data_loader(data_dir='./data',
-                                             batch_size=batch_size,
-                                             num_workers=num_workers)
-
-    test_loader = data_loader(data_dir='./data',
-                              batch_size=batch_size,
-                              num_workers=num_workers,
-                              test=True)
-
-    total_steps = len(train_loader)
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=weight_decay, momentum=momentum)  
-
-    # start training...
-    model = VGG11(progress=True, num_classes=100)
-    stage = get_model_stages(model, rank)
-    wandb.watch(stage, log="all", log_freq=10)
-
-
-
-def get_model_stages(model, stage_index):
+def get_model_stages(model, stage_index, input_example):
     if stage_index == 0:
         model_stage = nn.Sequential(*list(model.features.children())[:6])
     if stage_index == 1:
@@ -73,20 +52,57 @@ def get_model_stages(model, stage_index):
         stage_index,
         num_stages,
         device,
+        input_args=input_example
     )
 
     return stage
 
 
+def initialize_training(batch_size, num_workers, n_microbatches):
+    train_loader, valid_loader = data_loader(data_dir='./data',
+                                             batch_size=batch_size,
+                                             num_workers=num_workers)
 
+    test_loader = data_loader(data_dir='./data',
+                              batch_size=batch_size,
+                              num_workers=num_workers,
+                              test=True)
 
+    total_steps = len(train_loader)
+    loss_fn = nn.CrossEntropyLoss()
+    # optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=weight_decay, momentum=momentum)
+
+    # start training...
+    # MAYBE SEND TO TORCH.META??
+    model = VGG11(progress=True, num_classes=100)
+    
+    micro_batch_size = batch_size // n_microbatches
+    input_example = torch.rand(micro_batch_size, 3, 32, 32)
+    stage = get_model_stages(model, rank, input_example)
+    schedule = ScheduleGPipe(stage, n_microbatches, loss_fn=loss_fn)
+    wandb.watch(stage, log="all", log_freq=10)
+
+    for epoch in range(num_epochs):
+        print(f"Epoch {epoch + 1} / {num_epochs}")
+        for i, (x, target) in enumerate(train_loader):
+            x, target = x.to(device, target.to(device))
+            losses = []
+            if rank == 0:
+                schedule.step(x)
+            elif rank == 3:
+                losses = []
+                output = schedule.step(target=target, losses=losses)
+                print(f"Batch {i + 1} / {total_steps}: Loss = {sum(losses) / len(losses)}")
+            else:
+                schedule.step()
+    dist.destroy_process_group()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--schedule", type=str, required=True)
     parser.add_argument("--batch_size", type=int, required=True)
-    parser.add_argument("--microbatch_size", type=int, required=True)
+    parser.add_argument("--n_microbatches", type=int, required=True)
     parser.add_argument("--learning_rate", type=float, required=True)
     parser.add_argument("--num_epochs", type=int, required=True)
     parser.add_argument("--device", type=int, required=True)
@@ -101,4 +117,4 @@ if __name__ == '__main__':
     init_distributed()
     torch.set_num_threads(4)
 
-    initialize_training(args.batch_size, num_workers=4)
+    initialize_training(args.batch_size, num_workers=4, n_microbatches=args.n_microbatches)
