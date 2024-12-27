@@ -58,7 +58,7 @@ def get_model_stages(model, stage_index, input_example):
     return stage
 
 
-def initialize_training(batch_size, num_workers, n_microbatches):
+def initialize_training(batch_size, num_workers, n_microbatches, num_epochs):
     train_loader, valid_loader = data_loader(data_dir='./data',
                                              batch_size=batch_size,
                                              num_workers=num_workers)
@@ -86,13 +86,12 @@ def initialize_training(batch_size, num_workers, n_microbatches):
         print(f"Epoch {epoch + 1} / {num_epochs}")
         for i, (x, target) in enumerate(train_loader):
             x, target = x.to(device, target.to(device))
-            losses = []
             if rank == 0:
                 schedule.step(x)
             elif rank == 3:
                 losses = []
-                output = schedule.step(target=target, losses=losses)
-                print(f"Batch {i + 1} / {total_steps}: Loss = {sum(losses) / len(losses)}")
+                schedule.step(target=target, losses=losses)
+                print(f"Batch {i + 1} / {total_steps}")
             else:
                 schedule.step()
     dist.destroy_process_group()
@@ -117,4 +116,4 @@ if __name__ == '__main__':
     init_distributed()
     torch.set_num_threads(4)
 
-    initialize_training(args.batch_size, num_workers=4, n_microbatches=args.n_microbatches)
+    initialize_training(args.batch_size, num_workers=4, n_microbatches=args.n_microbatches, num_epochs=args.num_epochs)
