@@ -1,0 +1,84 @@
+{
+  "os": "Linux-6.8.0-51-generic-x86_64-with-glibc2.39",
+  "python": "CPython 3.10.16",
+  "startedAt": "2024-12-20T10:29:16.963119Z",
+  "program": "/home/at2124/pmp/pmp_eval/notebooks/sync_pmp.ipynb",
+  "codePath": "notebooks/sync_pmp.ipynb",
+  "git": {
+    "remote": "https://github.com/AsbjornLorenzen/pmp_eval.git",
+    "commit": "dc55a73601022ef871b4d3ff67bab20b9274bf6c"
+  },
+  "email": "asbjorn.lorenzen@gmail.com",
+  "root": "/home/at2124/pmp/pmp_eval/notebooks",
+  "host": "gxp-l4-0",
+  "executable": "/home/at2124/.conda/envs/pmp10/bin/python",
+  "codePathLocal": "sync_pmp.ipynb",
+  "cpu_count": 32,
+  "cpu_count_logical": 64,
+  "gpu": "NVIDIA L4",
+  "gpu_count": 8,
+  "disk": {
+    "/": {
+      "total": "445043310592",
+      "used": "44677332992"
+    }
+  },
+  "memory": {
+    "total": "540516552704"
+  },
+  "cpu": {
+    "count": 32,
+    "countLogical": 64
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA L4",
+      "memoryTotal": "24152899584",
+      "cudaCores": 7424,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.7"
+}

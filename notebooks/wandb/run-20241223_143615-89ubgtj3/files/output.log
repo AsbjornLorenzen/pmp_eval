@@ -1,0 +1,54 @@
+[0, 0, 0, 0, 0, 0, 0, 0]
+Available GPUs are: [0, 1, 2, 3, 4, 5, 6, 7]
+[4, 5, 6, 7]
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Epoch [1/25], Step [704/704], Loss: 4.5529, Acc: 10.188888888888888 %
+Accuracy of the network on the 5000 validation images: 0.82 %
+Epoch [2/25], Step [704/704], Loss: 4.2572, Acc: 8.175555555555556 %
+Accuracy of the network on the 5000 validation images: 5.08 %
+Epoch [3/25], Step [704/704], Loss: 4.2921, Acc: 9.177777777777777 %
+Accuracy of the network on the 5000 validation images: 10.36 %
+Epoch [4/25], Step [704/704], Loss: 4.5327, Acc: 12.5 %
+Accuracy of the network on the 5000 validation images: 15.34 %
+Epoch [5/25], Step [704/704], Loss: 4.2070, Acc: 15.571111111111112 %
+Accuracy of the network on the 5000 validation images: 16.52 %
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
+[0, 0, 0, 0, 0, 0, 0, 0]
+Available GPUs are: [0, 1, 2, 3, 4, 5, 6, 7]
+[4, 5, 6, 7]
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Epoch [1/25], Step [704/704], Loss: 3.5810, Acc: 11.61111111111111 %
+Accuracy of the network on the 5000 validation images: 17.22 %
+Epoch [2/25], Step [704/704], Loss: 3.3954, Acc: 20.326666666666668 %
+Accuracy of the network on the 5000 validation images: 22.9 %
+Epoch [3/25], Step [704/704], Loss: 2.2595, Acc: 25.482222222222223 %
+Accuracy of the network on the 5000 validation images: 27.88 %
+Epoch [4/25], Step [704/704], Loss: 2.6512, Acc: 29.56222222222222 %
+Accuracy of the network on the 5000 validation images: 27.76 %
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
+[0, 0, 0, 0, 0, 0, 0, 0]
+Available GPUs are: [0, 1, 2, 3, 4, 5, 6, 7]
+[4, 5, 6, 7]
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Epoch [1/25], Step [88/88], Loss: 3.8621, Acc: 6.773333333333333 %
+Accuracy of the network on the 5000 validation images: 12.22 %
+Epoch [2/25], Step [88/88], Loss: 3.4307, Acc: 14.604444444444445 %
+Accuracy of the network on the 5000 validation images: 17.14 %
+Epoch [3/25], Step [88/88], Loss: 3.3154, Acc: 18.675555555555555 %
+Accuracy of the network on the 5000 validation images: 20.02 %
+Epoch [4/25], Step [88/88], Loss: 3.1975, Acc: 22.304444444444446 %
+Accuracy of the network on the 5000 validation images: 22.04 %
+Epoch [5/25], Step [88/88], Loss: 3.0106, Acc: 24.77777777777778 %
+Accuracy of the network on the 5000 validation images: 23.58 %
+Epoch [6/25], Step [88/88], Loss: 2.8698, Acc: 27.173333333333332 %
+Accuracy of the network on the 5000 validation images: 27.38 %
+Epoch [7/25], Step [88/88], Loss: 2.8762, Acc: 29.41111111111111 %
+Accuracy of the network on the 5000 validation images: 29.24 %
