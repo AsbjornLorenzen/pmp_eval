@@ -3,6 +3,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1, 2, 3, 4, 5, 6, 7"
 import numpy as np
 import subprocess
 import torch
+import GPUtil
+import wandb
 
 def _find_free_gpus(threshold=10):
     try:
@@ -30,11 +32,15 @@ def get_free_gpus(ngpu):
         print(f"Available GPUs are: {free_gpus}")
         selected_gpus = free_gpus[-ngpu:]
         print(selected_gpus)
-
-        # for gpu_idx in selected_gpus:
-        #     print(torch.cuda.device(gpu_idx))
-        #     print(torch.cuda.get_device_properties(gpu_idx))
-    
     return selected_gpus
 
+
+def log_gpu_utilization():
+    gpus = GPUtil.getGPUs()
+    for gpu in gpus:
+        wandb.log({
+            f"gpu_{gpu.id}_memory": gpu.memoryUsed,
+            f"gpu_{gpu.id}_utilization": gpu.load * 100,
+            f"gpu_{gpu.id}_temperature": gpu.temperature,
+        })
     # device = torch.device(f"cuda:{selected_gpus[0]}" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
