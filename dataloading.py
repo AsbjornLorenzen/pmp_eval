@@ -11,7 +11,7 @@ def data_loader(data_dir,
                 valid_size=0.1,
                 shuffle=True,
                 test=False,
-                num_workers=4):
+                num_workers=0):
   
     normalize = tt.Normalize(
         mean=[0.4914, 0.4822, 0.4465],
@@ -34,7 +34,7 @@ def data_loader(data_dir,
         )
 
         data_loader = torch.utils.data.DataLoader(
-            dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers
+            dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers, drop_last=True
         )
 
         return data_loader
@@ -57,9 +57,9 @@ def data_loader(data_dir,
     valid_sampler = SubsetRandomSampler(valid_idx)
 
     train_loader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=batch_size, sampler=train_sampler, pin_memory=True, num_workers=num_workers)
+        train_dataset, batch_size=batch_size, sampler=train_sampler, pin_memory=True, num_workers=num_workers, drop_last=True)
  
     valid_loader = torch.utils.data.DataLoader(
-        valid_dataset, batch_size=batch_size, sampler=valid_sampler, pin_memory=True, num_workers=num_workers)
+        valid_dataset, batch_size=batch_size, sampler=valid_sampler, pin_memory=True, num_workers=num_workers, drop_last=True)
 
     return (train_loader, valid_loader)
