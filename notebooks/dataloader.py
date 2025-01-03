@@ -8,7 +8,7 @@ import numpy as np
 def data_loader(data_dir,
                 batch_size,
                 random_seed=42,
-                valid_size=0.1,
+                valid_size=0.8,
                 shuffle=True,
                 test=False,
                 num_workers=4):

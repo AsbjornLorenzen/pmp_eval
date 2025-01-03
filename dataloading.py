@@ -5,14 +5,22 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import torch
 import numpy as np
 
+def set_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
 def data_loader(data_dir,
                 batch_size,
-                random_seed=42,
                 valid_size=0.1,
                 shuffle=True,
                 test=False,
+                seed=1337,
                 num_workers=0):
   
+    set_seed(seed)
+
     normalize = tt.Normalize(
         mean=[0.4914, 0.4822, 0.4465],
         std=[0.2023, 0.1994, 0.2010],
@@ -49,7 +57,6 @@ def data_loader(data_dir,
     split = int(np.floor(valid_size * num_train))
 
     if shuffle:
-        np.random.seed(random_seed)
         np.random.shuffle(indices)
 
     train_idx, valid_idx = indices[split:], indices[:split]
